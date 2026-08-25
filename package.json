@@ -1,0 +1,52 @@
+{
+  "name": "dsh-at-skill",
+  "version": "0.1.0",
+  "description": "Invoke DeepSeek Harness skills with @name and show skill suggestions in the composer",
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./client": "./lib/client.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-runtime",
+        "@deepseek-ai/dsh-client-connection",
+        "@deepseek-ai/dsh-client-ui-input-trigger",
+        "@deepseek-ai/dsh-api-remotes"
+      ],
+      "platform": "web"
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "*",
+    "@deepseek-ai/dsh-agent": "*",
+    "@deepseek-ai/dsh-api-remotes": "*",
+    "@deepseek-ai/dsh-client-connection": "*",
+    "@deepseek-ai/dsh-client-runtime": "*",
+    "@deepseek-ai/dsh-client-ui-input-trigger": "*",
+    "@deepseek-ai/dsh-llm": "*",
+    "@deepseek-ai/dsh-session": "*",
+    "@deepseek-ai/dsh-skill": "*"
+  },
+  "scripts": {
+    "build": "tsdown"
+  },
+  "files": [
+    "lib",
+    "src",
+    "cordis.patch.yml",
+    "README.md"
+  ],
+  "license": "MIT"
+}

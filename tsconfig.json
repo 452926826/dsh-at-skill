@@ -1,0 +1,12 @@
+{
+  "extends": "/media/dengzhilong/项目/projects/deepseek-harness/tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "lib/types",
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "composite": false,
+    "noEmit": false
+  },
+  "include": ["src/**/*.ts"]
+}
