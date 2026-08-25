@@ -1,5 +1,7 @@
 # dsh-at-skill
 
+English | [简体中文](README.zh-CN.md)
+
 A standalone DeepSeek Harness plugin that adds Skill invocation through `@name` without modifying Harness source code.
 
 ## Behavior
@@ -17,7 +19,7 @@ The Skill group uses menu order `2`, after existing `@` reference groups, so it 
 Clone the repository, install dependencies, and add the local package to the Web profile:
 
 ```bash
-git clone https://github.com/<your-account>/dsh-at-skill.git
+git clone https://github.com/452926826/dsh-at-skill.git
 cd dsh-at-skill
 npm install
 dsh plugin --profile web add "$PWD"
