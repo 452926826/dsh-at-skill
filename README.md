@@ -25,6 +25,12 @@ npm install
 dsh plugin --profile web add "$PWD"
 ```
 
+It can also be installed directly from GitHub:
+
+```bash
+dsh plugin --profile web add github:452926826/dsh-at-skill
+```
+
 Restart `dsh web` after installation. The repository includes built `lib` artifacts so installing the package does not require a local Harness source checkout.
 
 ## Development

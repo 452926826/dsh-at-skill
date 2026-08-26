@@ -25,6 +25,12 @@ npm install
 dsh plugin --profile web add "$PWD"
 ```
 
+也可以直接从 GitHub 安装：
+
+```bash
+dsh plugin --profile web add github:452926826/dsh-at-skill
+```
+
 安装后重启 `dsh web`。仓库已提交构建后的 `lib` 产物，普通安装不需要本地 DeepSeek Harness 源码 checkout。
 
 ## 开发
