@@ -59,7 +59,8 @@
   },
   "scripts": {
     "build": "tsdown",
-    "check": "node --check lib/index.js && node --check lib/client.js",
+    "test": "node --test test/*.test.js",
+    "check": "node --check lib/index.js && node --check lib/client.js && npm test",
     "prepack": "npm run check"
   },
   "files": [
