@@ -1,12 +1,15 @@
 {
-  "extends": "/media/dengzhilong/项目/projects/deepseek-harness/tsconfig.base.json",
   "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "strict": true,
+    "skipLibCheck": true,
     "rootDir": "src",
     "outDir": "lib/types",
     "declaration": true,
-    "emitDeclarationOnly": true,
-    "composite": false,
-    "noEmit": false
+    "declarationMap": true,
+    "emitDeclarationOnly": true
   },
   "include": ["src/**/*.ts"]
 }

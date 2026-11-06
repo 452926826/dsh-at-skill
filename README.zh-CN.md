@@ -14,6 +14,10 @@
 
 Skill 分组的菜单顺序为 `2`，位于已有的 `@` 引用分组之后，因此不会改变它们默认的 Enter 选择目标。
 
+## 兼容性
+
+需要 Node.js 20 或更高版本，以及 DeepSeek Harness >=0.2.2-rc.1 <0.3.0-0。本版本不兼容较早的 0.1.x Harness 客户端。
+
 ## 安装
 
 克隆仓库、安装依赖，然后把本地包添加到 Web profile：
@@ -35,7 +39,7 @@ dsh plugin --profile web add github:452926826/dsh-at-skill
 
 ## 开发
 
-当前 TypeScript 和 tsdown 配置引用本地 DeepSeek Harness checkout 中的构建辅助文件。运行 `npm run build` 前，请把 `tsconfig.json` 和 `tsdown.config.ts` 指向你的 Harness checkout；普通插件安装直接使用已提交的 `lib` 产物。
+先运行 `npm ci`，再运行 `npm run build` 和 `npm run check`。构建使用 npm 依赖，不需要本地 Harness 源码 checkout。
 
 ## 限制
 

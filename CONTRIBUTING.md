@@ -8,4 +8,4 @@ npm run check
 npm pack --dry-run
 ```
 
-The build currently expects access to a DeepSeek Harness checkout through `tsconfig.json` and `tsdown.config.ts`. Commit updated `lib` output with source changes. Update `marketplace-entry.yml` when the repository URL, category, or public description changes.
+Run `npm ci` first to install the npm build dependencies. Commit updated `lib` output with source changes. Update `marketplace-entry.yml` when the repository URL, category, or public description changes.

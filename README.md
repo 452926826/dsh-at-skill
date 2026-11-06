@@ -14,6 +14,10 @@ A standalone DeepSeek Harness plugin that adds Skill invocation through `@name` 
 
 The Skill group uses menu order `2`, after existing `@` reference groups, so it does not change their default Enter target.
 
+## Compatibility
+
+Requires Node.js 20 or newer and DeepSeek Harness >=0.2.2-rc.1 <0.3.0-0. This version is not compatible with the earlier 0.1.x Harness client.
+
 ## Installation
 
 Clone the repository, install dependencies, and add the local package to the Web profile:
@@ -35,7 +39,7 @@ Restart `dsh web` after installation. The repository includes built `lib` artifa
 
 ## Development
 
-The current TypeScript and tsdown configuration references build helpers from a local DeepSeek Harness checkout. Point `tsconfig.json` and `tsdown.config.ts` at your checkout before running `npm run build`; normal plugin installation uses the committed `lib` artifacts.
+Run `npm ci`, then `npm run build` and `npm run check`. The build uses npm dependencies and does not require a local Harness checkout.
 
 ## Limitation
 

@@ -1,5 +1,11 @@
 import type { SkillEntry } from '@deepseek-ai/dsh-api-session-controller/types'
-import type { ClientContext } from '@deepseek-ai/dsh-client-runtime/client'
+import type { ISessions } from '@deepseek-ai/dsh-api-session-controller/client'
+import type {} from '@deepseek-ai/dsh-api-session-controller/remote'
+import type {} from '@deepseek-ai/dsh-agent-preset-registry/types'
+import type {} from '@deepseek-ai/dsh-api-remotes/types'
+import type {} from '@deepseek-ai/dsh-api-gateway/client'
+import type {} from '@deepseek-ai/dsh-client-connection/client'
+import type { Context as ClientContext } from '@deepseek-ai/cordis'
 import type { InputTriggerServiceContract, InputTriggerSource } from '@deepseek-ai/dsh-client-ui-input-trigger/client'
 import type { SessionId } from '@deepseek-ai/dsh-session/types'
 
@@ -8,7 +14,7 @@ export const inject = ['inputTriggers', 'sessions', 'remote', 'remote.skills']
 /** Register the browser-side @skill candidate source. */
 export function apply(ctx: ClientContext): void {
   const skills = ctx.remote.skills
-  const sessions = ctx.sessions
+  const sessions = ctx.get('sessions') as unknown as ISessions
   const cache = new Map<SessionId, Promise<readonly SkillEntry[]>>()
 
   const catalog = (sessionId: SessionId): Promise<readonly SkillEntry[]> => {
@@ -17,10 +23,12 @@ export function apply(ctx: ClientContext): void {
     if (existing !== undefined) return existing
     const pending = skills.list({ sessionId }).then((result) => {
       if (!result.ok) {
-        cache.delete(sessionId)
         throw new Error(`skills/list failed: ${result.error.code}: ${result.error.message}`)
       }
       return result.value.skills
+    }).catch((error: unknown) => {
+      if (cache.get(sessionId) === pending) cache.delete(sessionId)
+      throw error
     })
     cache.set(sessionId, pending)
     return pending
