@@ -7,7 +7,7 @@ A standalone DeepSeek Harness plugin that adds Skill invocation through `@name` 
 ## Behavior
 
 - Typing `@` in the conversation composer lists every user-invocable Skill available to the current session.
-- Typing more characters filters candidates by Skill-name prefix.
+- Typing more characters filters candidates by Skill-name prefix; settled catalog results are refreshed on the next request.
 - Picking a candidate inserts `@skill-name `.
 - Sending a whitespace-bounded `@skill-name` token loads that Skill deterministically before the model step.
 - Existing `/skill-name`, `@subagent`, and `@plugin` behavior remains owned by their original plugins.
@@ -43,4 +43,4 @@ Run `npm ci`, then `npm run build` and `npm run check`. The build uses npm depen
 
 ## Limitation
 
-Invocation is text-based. If a Skill, subagent, or plugin shares the same `@name`, the submitted text carries no source identity; a matching user-invocable Skill is loaded by the Host plugin.
+Invocation is text-based and also matches tokens inside quotations and code blocks; it does not distinguish explicit picks from other text. If a Skill, subagent, or plugin shares the same `@name`, the submitted text carries no source identity; a matching user-invocable Skill is loaded by the Host plugin.

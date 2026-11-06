@@ -1,3 +1,5 @@
+import type {} from '@deepseek-ai/dsh-agent-preset-registry'
+import type {} from '@deepseek-ai/dsh-working-directory'
 import type { Context } from '@deepseek-ai/cordis'
 import type { PreStepDecision } from '@deepseek-ai/dsh-agent'
 import { createUserMessage } from '@deepseek-ai/dsh-llm'
@@ -5,7 +7,7 @@ import type { UserMessage } from '@deepseek-ai/dsh-session'
 import { isUserInvocable, renderSkillContent, type SkillInvocationSource } from '@deepseek-ai/dsh-skill'
 
 export const name = 'at-skill'
-export const inject = ['agents', 'skills']
+export const inject = ['agents', 'skills', 'workingDirectory']
 
 const AT_SKILL = /(^|\s)@([a-z0-9]+(?:-[a-z0-9]+)*)(?=\s|$)/g
 
@@ -36,11 +38,13 @@ export function apply(ctx: Context): void {
     const names = invokedNames(messages)
     if (names.length === 0) return decision
 
-    const lookup = { cwd: agent.session.header.cwd, signal, scope: agent }
+    const cwd = await ctx.workingDirectory.ensure(agent, signal)
+    const lookup = { cwd, signal, scope: agent }
+    const skills = ctx.get('agentPresets')?.serviceFor(agent, 'skills') ?? ctx.skills
     const injections: UserMessage[] = []
     for (const name of names) {
       signal.throwIfAborted()
-      const skill = await ctx.skills.get(name, lookup)
+      const skill = await skills.get(name, lookup)
       if (skill === undefined || !isUserInvocable(skill)) continue
       const source: SkillInvocationSource = {
         kind: 'skill-invocation',
@@ -55,6 +59,6 @@ export function apply(ctx: Context): void {
 
     return injections.length === 0
       ? decision
-      : { kind: 'enter', messages: [...decision.messages, ...injections] }
+      : { ...decision, messages: [...decision.messages, ...injections] }
   })
 }
